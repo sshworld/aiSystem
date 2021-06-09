@@ -7,7 +7,7 @@ from sklearn.neural_network import MLPClassifier
 
 x_train, x_test, y_train, y_test = np.load('./img_data.npy', allow_pickle=True)
 
-mlp = MLPClassifier(hidden_layer_sizes=(7, 4, 8, 2), learning_rate_init=0.0005, batch_size=32, solver='adam',
+mlp = MLPClassifier(hidden_layer_sizes=(100), learning_rate_init=0.0005, batch_size=32, solver='adam',
                     verbose=True, max_iter=100)
 
 
