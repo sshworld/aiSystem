@@ -1,6 +1,7 @@
 /datasets
 /failModel
 
+*.npy
 *.png
 *.jpg
 *.zip
