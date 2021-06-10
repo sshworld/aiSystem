@@ -9,6 +9,8 @@ from tensorflow.keras.callbacks import EarlyStopping
 from cv2 import cv2
 import matplotlib.pyplot as plt
 
+import time
+
 
 path = './datasets/train/'
 fruits = []
@@ -57,6 +59,8 @@ test_length=len(x_test)
 y_train=keras.utils.to_categorical(y_train,num_classes)
 y_test=keras.utils.to_categorical(y_test,num_classes)
 
+start = time.time()
+
 model = Sequential()
 model.add(Conv2D(32, kernel_size = (3, 3), activation='relu', input_shape=(im_w,im_h,3)))
 model.add(MaxPooling2D(pool_size=(2,2)))
@@ -81,8 +85,13 @@ model.add(Dense(36, activation = 'softmax'))
 
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 model.summary()
+
+keras.utils.plot_model(model, "./CNN_model.png")
+
 early_stop = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=17)
 history = model.fit(x_train,y_train,batch_size=50, epochs=90,verbose=1, validation_split=0.33, callbacks=[early_stop])
 
 score = model.evaluate(x_test, y_test, verbose=1)
 print(f'Accuracy on the test set: {100*score[1]:.2f}%')
+
+print("time : ", time.time() - start)

@@ -5,6 +5,8 @@ import os.path
 import matplotlib.pyplot as plt
 import tensorflow as tf
 
+import time
+
 # Create a list with the filepaths for training and testing
 train_dir = Path('./datasets/train')
 train_filepaths = list(train_dir.glob(r'**/*.jpg'))
@@ -111,6 +113,8 @@ pretrained_model = tf.keras.applications.MobileNetV2(
 )
 pretrained_model.trainable = False
 
+start = time.time()
+
 inputs = pretrained_model.input
 
 x = tf.keras.layers.Dense(128, activation='relu')(pretrained_model.output)
@@ -119,6 +123,8 @@ x = tf.keras.layers.Dense(128, activation='relu')(x)
 outputs = tf.keras.layers.Dense(36, activation='softmax')(x)
 
 model = tf.keras.Model(inputs=inputs, outputs=outputs)
+
+model.summary()
 
 model.compile(
     optimizer='adam',
@@ -154,3 +160,5 @@ y_test = [labels[k] for k in test_images.classes]
 from sklearn.metrics import accuracy_score
 acc = accuracy_score(y_test, pred)
 print(f'Accuracy on the test set: {100*acc:.2f}%')
+
+print("time : ", time.time() - start)

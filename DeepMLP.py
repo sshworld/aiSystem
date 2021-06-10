@@ -5,9 +5,12 @@ import os
 from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 
+import time
+start = time.time()
+
 x_train, x_test, y_train, y_test = np.load('./img_data.npy', allow_pickle=True)
 
-mlp = MLPClassifier(hidden_layer_sizes=(32, 10, 10, 7), learning_rate_init=0.0005, batch_size=32, solver='adam',
+mlp = MLPClassifier(hidden_layer_sizes=(64, 32, 10, 7), learning_rate_init=0.0005, batch_size=512, solver='adam',
                     verbose=True, max_iter=100)
 
 
@@ -27,3 +30,5 @@ for i in range(36) :
     correct += conf[i][i]
 accuracy = correct / len(res)
 print(f'Accuracy on the test set: {100*accuracy:.2f}%')
+
+print("time : ", time.time() - start)
