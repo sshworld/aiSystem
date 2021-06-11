@@ -124,13 +124,13 @@ outputs = tf.keras.layers.Dense(36, activation='softmax')(x)
 
 model = tf.keras.Model(inputs=inputs, outputs=outputs)
 
-model.summary()
-
 model.compile(
     optimizer='adam',
     loss='categorical_crossentropy',
     metrics=['accuracy']
 )
+
+model.summary()
 
 history = model.fit(
     train_images,
