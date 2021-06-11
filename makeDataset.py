@@ -52,7 +52,7 @@ for category in categories:
         imgpath = os.path.join(path, img)
         food_img = cv2.imread(imgpath,0)
         try:
-            food_img = cv2.resize(food_img,(224,224))
+            food_img = cv2.resize(food_img,(224,224, 3))
             image = np.array(food_img).flatten()
             
             data.append([image,label])
