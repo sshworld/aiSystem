@@ -86,10 +86,8 @@ model.add(Dense(36, activation = 'softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 model.summary()
 
-keras.utils.plot_model(model, "./CNN_model.png")
-
 early_stop = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=17)
-history = model.fit(x_train,y_train,batch_size=50, epochs=90,verbose=1, validation_split=0.33, callbacks=[early_stop])
+history = model.fit(x_train,y_train,batch_size=50, epochs=20,verbose=1, validation_split=0.33, callbacks=[early_stop])
 
 score = model.evaluate(x_test, y_test, verbose=1)
 print(f'Accuracy on the test set: {100*score[1]:.2f}%')
